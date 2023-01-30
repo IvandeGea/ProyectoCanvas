@@ -3,21 +3,19 @@ window.onload = () => {
     class Player {
         constructor() {
             this.x = 100;
-            this.y = 100;
-            this.w = 500;
-            this.h = 300;
+            this.y = 360;
+            this.w = 75;
+            this.h = 75;
             this.vel = 0;
             this.gravity = 0;
 
             this.imgPlayer = document.createElement("img");
-            this.imgPlayer.src = "Images/dino.png"
+            this.imgPlayer.src = "images/dino.png"
 
         }
         print(ctx) {
 
-
             ctx.drawImage(this.imgPlayer, this.x, this.y, this.w, this.h);
-
         }
         jump() { }
     }
@@ -29,7 +27,7 @@ window.onload = () => {
             this.w = canvas.width;
             this.h = canvas.height;
             this.imgBack = document.createElement("img");
-            this.imgBack.src = "Images/background.jpg"
+            this.imgBack.src = "images/background.jpg"
             this.vel = 2
         }
         print(ctx) {
@@ -42,15 +40,15 @@ window.onload = () => {
     class Suelo {
         constructor() {
             this.x = 0;
-            this.y = 50;
+            this.y = 435;
             this.w = canvas.width;
-            this.h = 50;
+            this.h = 70;
             this.imgSuelo = document.createElement("img")
-            this.imgSuelo = "Image/suelo.png"
-            this.vel = 10
+            this.imgSuelo.src = "images/suelo.png"
+            this.vel = 0
         }
         print(ctx) {
-            ctx.drawImage(this.imgSuelo, this.x, this.y, this.w, this.h);
+            10 * ctx.drawImage(this.imgSuelo, this.x, this.y, this.w, this.h);
         }
         move() {
             this.x -= this.vel
@@ -61,15 +59,16 @@ window.onload = () => {
     class Obstaculo {
         constructor() {
             this.x = 750;
-            this.y = 0;
-            this.w = 50;
-            this.h = 50;
-            this.vel = 10;
+            this.y = 360;
+            this.w = 75;
+            this.h = 75;
+            this.vel = 1;
             this.color = "red";
+            this.imgObstaculo = document.createElement("img")
+            this.imgObstaculo.src = "images/obstaculo1.png"
         }
         print(ctx) {
-            ctx.fillStyle = this.color;
-            ctx.fillRect(this.x, this.y, this.w, this.h);
+            ctx.drawImage(this.imgObstaculo, this.x, this.y, this.w, this.h);
         }
         move() {
             this.x -= this.vel
@@ -113,11 +112,13 @@ window.onload = () => {
         print() {
             console.log(this.ctx);
             //fondo
-            this.ctx.drawImage(this.suelo, 0, 0, this.canvas.width, this.canvas.height);
+            this.fondo.print(this.ctx);
             //coche
             this.player.print(this.ctx);
             //obst
             this.obstaculo.print(this.ctx);
+            // suelo
+            this.suelo.print(this.ctx)
         }
         recalculate() {
             if (this.iteracion == 70) {
@@ -127,20 +128,18 @@ window.onload = () => {
 
             //     //cambio posiciones
             this.obstaculo.move();
-            // controlo colisiones
-            if (!(this.player.x + this.player.w < obstaculo.x ||
-                this.player.x > player.x + player.w ||
-                this.player.y > obstaculo.y + obstaculo.h ||
-                this.player.y + this.coche.h < obstaculo.y)) {
-                this.stop();
-            }
-
-
-
-
+            // // controlo colisiones
+            // if (!(this.player.x + this.player.w < obstaculo.x ||
+            //     this.player.x > player.x + player.w ||
+            //     this.player.y > obstaculo.y + obstaculo.h ||
+            //     this.player.y + this.coche.h < obstaculo.y)) {
+            //     this.stop();
         }
 
+
     }
+
+
 
     let juego = new Juego();
 
