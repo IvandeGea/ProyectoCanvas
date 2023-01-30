@@ -111,37 +111,37 @@ window.onload = () => {
             //     //cambio posiciones
             this.obstaculo.move();
             //controlo colisiones
-            if (!(this.coche.x + this.coche.w < obstaculo.x ||
-                this.coche.x > obstaculo.x + obstaculo.w ||
-                this.coche.y > obstaculo.y + obstaculo.h ||
-                this.coche.y + this.coche.h < obstaculo.y)) {
-                this.stop();
-            }
-
-            // }
+            // if (!(this.coche.x + this.coche.w < obstaculo.x ||
+            //     this.coche.x > obstaculo.x + obstaculo.w ||
+            //     this.coche.y > obstaculo.y + obstaculo.h ||
+            //     this.coche.y + this.coche.h < obstaculo.y)) {
+            //     this.stop();
         }
 
-        // let juego = new Juego();
-
-        // document.getElementById('start-button').onclick = () => {
-        //     startGame();
-        // };
-
-        // function startGame() {
-        //     juego.start();
         // }
+    }
 
-        // document.body.addEventListener()
-        // document.getElementsByTagName("body")[0].addEventListener("keydown", (event) => {
-        //     switch (event.key) {
-        //         case "ArrowLeft":
-        //             juego.coche.moveIzq();
-        //             break;
-        //         case "ArrowRight":
-        //             juego.coche.moveDer();
-        //             break;
-        // }
-        // });
-    };
+    // let juego = new Juego();
 
-}
+    // document.getElementById('start-button').onclick = () => {
+    //     startGame();
+    // };
+
+    // function startGame() {
+    //     juego.start();
+    // }
+
+    // document.body.addEventListener()
+    // document.getElementsByTagName("body")[0].addEventListener("keydown", (event) => {
+    //     switch (event.key) {
+    //         case "ArrowLeft":
+    //             juego.coche.moveIzq();
+    //             break;
+    //         case "ArrowRight":
+    //             juego.coche.moveDer();
+    //             break;
+    // }
+    // });
+};
+
+
