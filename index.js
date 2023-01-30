@@ -1,11 +1,5 @@
 window.onload = () => {
 
-
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "yellow";
-    ctx.fillRect(50, 50, 100, 100);
-
     class Player {
         constructor() {
             this.x = 100;
@@ -21,9 +15,9 @@ window.onload = () => {
         }
         print(ctx) {
 
-            imgPlayer.onload = () => {
-                ctx.drawImage(this.imgPlayer, this.x, this.y, this.w, this.h);
-            }
+
+            ctx.drawImage(this.imgPlayer, this.x, this.y, this.w, this.h);
+
         }
         jump() { }
     }
@@ -36,15 +30,34 @@ window.onload = () => {
             this.h = canvas.height;
             this.imgBack = document.createElement("img");
             this.imgBack.src = "Images/background.jpg"
+            this.vel = 2
         }
         print(ctx) {
 
-            this.imgBack.onload = () => {
-                ctx.drawImage(this.imgBack, this.x, this.y, this.w, this.h);
-            }
+            ctx.drawImage(this.imgBack, this.x, this.y, this.w, this.h);
+
 
         }
     }
+    class Suelo {
+        constructor() {
+            this.x = 0;
+            this.y = 50;
+            this.w = canvas.width;
+            this.h = 50;
+            this.imgSuelo = document.createElement("img")
+            this.imgSuelo = "Image/suelo.png"
+            this.vel = 10
+        }
+        print(ctx) {
+            ctx.drawImage(this.imgSuelo, this.x, this.y, this.w, this.h);
+        }
+        move() {
+            this.x -= this.vel
+        }
+    }
+
+
     class Obstaculo {
         constructor() {
             this.x = 750;
@@ -66,12 +79,16 @@ window.onload = () => {
     class Juego {
         constructor() {
 
+            this.canvas = document.getElementById("canvas");
+            this.ctx = canvas.getContext("2d");
             this.player = new Player();
-            this.obstaculos = new Obstaculo();
+            this.obstaculo = new Obstaculo();
+            this.suelo = new Suelo()
+            this.fondo = new Fondo();
             this.score = 0;
             this.intervalId = undefined;
             this.iteracion = 0;
-            this.fondo = new Fondo();
+
         }
         start() {
 
@@ -96,9 +113,9 @@ window.onload = () => {
         print() {
             console.log(this.ctx);
             //fondo
-            this.ctx.drawImage(this.roadImg, 0, 0, this.canvas.width, this.canvas.height);
+            this.ctx.drawImage(this.suelo, 0, 0, this.canvas.width, this.canvas.height);
             //coche
-            this.coche.print(this.ctx);
+            this.player.print(this.ctx);
             //obst
             this.obstaculo.print(this.ctx);
         }
@@ -110,38 +127,31 @@ window.onload = () => {
 
             //     //cambio posiciones
             this.obstaculo.move();
-            //controlo colisiones
-            // if (!(this.coche.x + this.coche.w < obstaculo.x ||
-            //     this.coche.x > obstaculo.x + obstaculo.w ||
-            //     this.coche.y > obstaculo.y + obstaculo.h ||
-            //     this.coche.y + this.coche.h < obstaculo.y)) {
-            //     this.stop();
+            // controlo colisiones
+            if (!(this.player.x + this.player.w < obstaculo.x ||
+                this.player.x > player.x + player.w ||
+                this.player.y > obstaculo.y + obstaculo.h ||
+                this.player.y + this.coche.h < obstaculo.y)) {
+                this.stop();
+            }
+
+
+
+
         }
 
-        // }
     }
 
-    // let juego = new Juego();
+    let juego = new Juego();
 
-    // document.getElementById('start-button').onclick = () => {
-    //     startGame();
-    // };
+    document.getElementById('start-button').onclick = () => {
+        startGame();
+    };
 
-    // function startGame() {
-    //     juego.start();
-    // }
+    function startGame() {
+        juego.start();
+    }
 
-    // document.body.addEventListener()
-    // document.getElementsByTagName("body")[0].addEventListener("keydown", (event) => {
-    //     switch (event.key) {
-    //         case "ArrowLeft":
-    //             juego.coche.moveIzq();
-    //             break;
-    //         case "ArrowRight":
-    //             juego.coche.moveDer();
-    //             break;
-    // }
-    // });
-};
 
+}
 
