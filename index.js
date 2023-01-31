@@ -3,11 +3,11 @@ window.onload = () => {
     class Player {
         constructor() {
             this.x = 100;
-            this.y = 360;
+            this.y = -50;
             this.w = 75;
             this.h = 50;
             this.vel = 0;
-            this.gravity = 2;
+            this.gravity = 1;
             this.jumping = false;
 
             this.imgPlayer = document.createElement("img");
@@ -19,7 +19,7 @@ window.onload = () => {
             ctx.drawImage(this.imgPlayer, this.x, this.y, this.w, this.h);
         }
         jump() { 
-            this.vel = -25;
+            this.vel = -20;
             this.jumping = true;
         }
     }
@@ -52,12 +52,14 @@ window.onload = () => {
             }
         }
     }
+
+
     class Suelo {
         constructor() {
             this.x = canvas.width;
-            this.y = 435;
-            this.w = 70;
-            this.h = 70;
+            this.y = 400;
+            this.w = 100;
+            this.h = 100;
             this.imgSuelo = document.createElement("img")
             this.imgSuelo.src = "images/suelo.png"
             this.vel = 1
@@ -75,11 +77,11 @@ window.onload = () => {
 
     class Obstaculo {
         constructor() {
-            this.x = 750;
+            this.x = 700;
             this.y = 360;
             this.w = 75;
             this.h = 75;
-            this.vel = 1;
+            this.vel = 5;
             this.color = "red";
             this.imgObstaculo = document.createElement("img")
             this.imgObstaculo.src = "images/obstaculo1.png"
@@ -124,27 +126,33 @@ window.onload = () => {
                 }, 20);
             }
         }
+
         stop() {
             if (this.intervalId) clearInterval(this.intervalId);
         }
+
         clear() {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         }
+
         print() {
             // console.log(this.ctx);
             //fondo
             this.fondo.print(this.ctx);
+            // suelo
+            this.suelos.forEach(suelos => {
+                suelos.print(this.ctx)
+            });
             //Player
             this.player.print(this.ctx);
             //obst
             this.obstaculos.forEach(obstaculo => {
                 obstaculo.print(this.ctx)
             });
-            // suelo
-            this.suelos.forEach(suelos => {
-                suelos.print(this.ctx)
-            });
         }
+        
+
+
         recalculate() {
             if (this.iteracion % 200 == 0) {
                 //creo obstaculo
@@ -152,26 +160,28 @@ window.onload = () => {
                 //lo añado al array
                 this.obstaculos.push(obstaculo);
                 ;
-            }
+                }
 
             if (this.iteracion % 70 == 0) {
                 let suelo = new Suelo(this.canvas);
                 this.suelos.push(suelo);
+                }
 
-            }
 
-            //recorro array obstaculos:
-            this.obstaculos.forEach(obstaculo => {
+                //recorro array obstaculos:
+                this.obstaculos.forEach(obstaculo => {
                 //cambio posiciones
                 obstaculo.move();
-
-            this.player.y += this.player.vel;
-            this.player.vel += this.player.gravity;
-            if (this.player.y >= 360) {
-              this.player.y = 360;
-              this.player.vel = 0;
-              this.player.jumping = false;
-            }  
+            })
+                
+                this.player.y += this.player.vel;
+                this.player.vel += this.player.gravity;
+                if (this.player.y >= 370) {
+                this.player.y = 370;
+                this.player.vel = 0;
+                this.player.jumping = false;
+                    } 
+                    
                 //controlo colisiones
                 // if (!(this.coche.x + this.coche.w < obstaculo.x ||
                 //     this.coche.x > obstaculo.x + obstaculo.w ||
@@ -179,7 +189,7 @@ window.onload = () => {
                 //     this.coche.y + this.coche.h < obstaculo.y)) {
                 // //     this.stop();
                 // }
-            })
+
             this.suelos.forEach(suelo => {
                 suelo.move()
             })
