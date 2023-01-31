@@ -214,4 +214,3 @@ window.onload = () => {
     //BARRA ESPACIADORA!!!
 
 }
-
