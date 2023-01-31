@@ -18,7 +18,7 @@ window.onload = () => {
 
             ctx.drawImage(this.imgPlayer, this.x, this.y, this.w, this.h);
         }
-        jump() { 
+        jump() {
             this.vel = -25;
             this.jumping = true;
         }
@@ -32,22 +32,21 @@ window.onload = () => {
             this.y = 0;
             this.w = canvas.width;
             this.h = canvas.height;
-
+            this.vel = 0.25;
             this.imgBack = document.createElement("img");
             this.imgBack.src = "images/fondo.jpeg"
-            this.vel = 2
+
+
         }
         print(ctx) {
 
             ctx.drawImage(this.imgBack, this.x, this.y, this.w, this.h);
-            ctx.drawImage(this.imgBack, this.x + this.imgBack.width, 0)
+            ctx.drawImage(this.imgBack, this.x + this.w, 0)
 
-            // ctx.drawImage(backgroundImage, backgroundX, 0);
-            //   ctx.drawImage(backgroundImage, backgroundX + backgroundImage.width, 0);
         }
         move() {
             this.x -= this.vel;
-            if (this.x <= -this.imgBack.width) {
+            if (this.x <= 0) {
                 this.x = 0;
             }
         }
@@ -55,9 +54,9 @@ window.onload = () => {
     class Suelo {
         constructor() {
             this.x = canvas.width;
-            this.y = 435;
+            this.y = 400;
             this.w = 70;
-            this.h = 70;
+            this.h = 120;
             this.imgSuelo = document.createElement("img")
             this.imgSuelo.src = "images/suelo.png"
             this.vel = 1
@@ -71,7 +70,6 @@ window.onload = () => {
             this.x -= this.vel
         }
     }
-
 
     class Obstaculo {
         constructor() {
@@ -160,25 +158,32 @@ window.onload = () => {
 
             }
 
+            this.fondo.x -= this.fondo.vel;
+            if (this.fondo.x <= -this.fondo.w) {
+                this.fondo.x = 0;
+            }
+
+
+
             //recorro array obstaculos:
             this.obstaculos.forEach(obstaculo => {
                 //cambio posiciones
                 obstaculo.move();
 
-            this.player.y += this.player.vel;
-            this.player.vel += this.player.gravity;
-            if (this.player.y >= 360) {
-              this.player.y = 360;
-              this.player.vel = 0;
-              this.player.jumping = false;
-            }  
-                //controlo colisiones
-                // if (!(this.coche.x + this.coche.w < obstaculo.x ||
-                //     this.coche.x > obstaculo.x + obstaculo.w ||
-                //     this.coche.y > obstaculo.y + obstaculo.h ||
-                //     this.coche.y + this.coche.h < obstaculo.y)) {
-                // //     this.stop();
-                // }
+                this.player.y += this.player.vel;
+                this.player.vel += this.player.gravity;
+                if (this.player.y >= 360) {
+                    this.player.y = 360;
+                    this.player.vel = 0;
+                    this.player.jumping = false;
+                }
+                // controlo colisiones
+                if (!(this.player.x + this.player.w < obstaculo.x ||
+                    this.player.x > obstaculo.x + obstaculo.w ||
+                    this.player.y > obstaculo.y + obstaculo.h ||
+                    this.player.y + this.player.h < obstaculo.y)) {
+                    this.stop();
+                }
             })
             this.suelos.forEach(suelo => {
                 suelo.move()
@@ -188,25 +193,25 @@ window.onload = () => {
     }
 
     let juego = new Juego();
-    
+
     document.getElementById('start-button').onclick = () => {
         startGame();
     };
-    
+
     function startGame() {
         juego.start();
     }
-    
+
     //BARRA ESPACIADORA!!!
-    
-    document.addEventListener("keydown", function(event) {
+
+    document.addEventListener("keydown", function (event) {
         if (event.code === "Space" && !juego.player.jumping) {
 
             juego.player.jump()
         }
-      });
-    
+    });
+
     //BARRA ESPACIADORA!!!
-    
+
 }
 
