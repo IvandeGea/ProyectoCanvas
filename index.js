@@ -5,30 +5,22 @@ window.onload = () => {
             this.x = 100;
             this.y = 360;
             this.w = 75;
-            this.h = 75;
+            this.h = 50;
             this.vel = 0;
             this.gravity = 2;
             this.jumping = false;
 
             this.imgPlayer = document.createElement("img");
-            this.imgPlayer.src = "images/dino.png"
+            this.imgPlayer.src = "images/pika.gif"
 
         }
         print(ctx) {
 
             ctx.drawImage(this.imgPlayer, this.x, this.y, this.w, this.h);
         }
-        jump() {
-            if (!this.jumping) {
-                this.vel = -20;
-                this.jumping = true;
-            }
-
-            if (this.y >= 435) {
-                this.y = 435;
-                this.vel = 0
-                this.jumping = false;
-            }
+        jump() { 
+            this.vel = -25;
+            this.jumping = true;
         }
     }
 
@@ -42,7 +34,7 @@ window.onload = () => {
             this.h = canvas.height;
 
             this.imgBack = document.createElement("img");
-            this.imgBack.src = "images/background.jpg"
+            this.imgBack.src = "images/fondo.jpeg"
             this.vel = 2
         }
         print(ctx) {
@@ -139,7 +131,7 @@ window.onload = () => {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         }
         print() {
-            console.log(this.ctx);
+            // console.log(this.ctx);
             //fondo
             this.fondo.print(this.ctx);
             //Player
@@ -172,6 +164,14 @@ window.onload = () => {
             this.obstaculos.forEach(obstaculo => {
                 //cambio posiciones
                 obstaculo.move();
+
+            this.player.y += this.player.vel;
+            this.player.vel += this.player.gravity;
+            if (this.player.y >= 360) {
+              this.player.y = 360;
+              this.player.vel = 0;
+              this.player.jumping = false;
+            }  
                 //controlo colisiones
                 // if (!(this.coche.x + this.coche.w < obstaculo.x ||
                 //     this.coche.x > obstaculo.x + obstaculo.w ||
@@ -188,98 +188,25 @@ window.onload = () => {
     }
 
     let juego = new Juego();
-
+    
     document.getElementById('start-button').onclick = () => {
         startGame();
     };
-
+    
     function startGame() {
         juego.start();
     }
+    
+    //BARRA ESPACIADORA!!!
+    
+    document.addEventListener("keydown", function(event) {
+        if (event.code === "Space" && !juego.player.jumping) {
 
-    // document.getElementByTagName("body")[0].addEventListener("keydown", function (event) {
-    //     if (event.code === "Space" && !jumping) {
-    //         juego.player.jump()
-    //         juego.player.vel = - 25;
-    //         juego.player.jumping = true;
-    //     }
-    // })
-
-
+            juego.player.jump()
+        }
+      });
+    
+    //BARRA ESPACIADORA!!!
+    
 }
-
-
-
-
-// // Variables para el control del personaje
-// let x = 70;
-// let y = -100;
-// let vy = 0;
-// let gravity = 2;
-// let jumping = false;
-
-
-// // Carga la imagen del personaje
-// let playerImage = new Image();
-// playerImage.src = "hola.gif";
-
-// // Carga la imagen de fondo
-// let backgroundImage = new Image();
-// backgroundImage.src = "fondo.jpeg";
-
-// let backgroundX = 0;
-// let backgroundSpeed = 2;
-
-// // Carga la imagen de suelo
-// let floorImage = new Image();
-// floorImage.src = "fondo block.png";
-
-// let floorX = 0;
-// let floorSpeed = 2;
-
-// // Detecta si se ha pulsado la tecla de salto
-// document.addEventListener("keydown", function(event) {
-//   if (event.code === "Space" && !jumping) {
-//     vy = -25;
-//     jumping = true;
-//   }
-// });
-
-// // Bucle de juego
-// setInterval(function() {
-//   // Actualiza la posición y velocidad del personaje
-//   y += vy;
-//   vy += gravity;
-
-//
-
-//   // Actualiza la posición de la imagen de fondo
-//   backgroundX -= backgroundSpeed;
-//   if (backgroundX <= -backgroundImage.width) {
-//     backgroundX = 0;
-//   }
-
-//   // Dibuja el personaje y el fondo
-//   let canvas = document.getElementById("gameCanvas");
-//   let ctx = canvas.getContext("2d");
-//   ctx.clearRect(0, 0, canvas.width, canvas.height);
-//   ctx.drawImage(backgroundImage, backgroundX, 0);
-//   ctx.drawImage(backgroundImage, backgroundX + backgroundImage.width, 0);
-
-//   ctx.drawImage(floorImage, floorX, 277);
-//   ctx.drawImage(floorImage, 612, 277);
-//   ctx.drawImage(playerImage, x, y, 75, 50);
-
-
-//   // Dibuja el suelo
-//   ctx.fillRect(0, 500, 500, 5);
-// }, 20);
-
-
-
-
-
-
-
-
 
