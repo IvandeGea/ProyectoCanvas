@@ -42,7 +42,7 @@ window.onload = () => {
         print(ctx) {
 
             ctx.drawImage(this.imgBack, this.x, this.y, this.w, this.h);
-            ctx.drawImage(this.imgBack, this.x + this.w, 0)
+            ctx.drawImage(this.imgBack, this.x + this.w, this.y, this.w, this.h)
 
         }
         move() {
