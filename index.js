@@ -129,6 +129,8 @@ window.onload = () => {
 
         stop() {
             if (this.intervalId) clearInterval(this.intervalId);
+
+
         }
 
         clear() {
@@ -198,10 +200,18 @@ window.onload = () => {
 
 
     let juego = new Juego();
+    let boton = document.getElementById("game-intro")
 
-    document.getElementById('start-button').onclick = () => {
+    boton.addEventListener ("click", () => {
+        
+        document.getElementById("game-intro").style.display = "none";
+        document.getElementById("game-board").style.display = "block";
+        console.log("entraaaaa")
         startGame();
-    };
+
+
+
+    });
 
     function startGame() {
         juego.start();
