@@ -186,6 +186,13 @@ window.onload = () => {
         //   }
         //   
         start() {
+            this.player = new Player();
+            this.obstaculos = [];
+            this.suelo = new Suelo();
+            this.fondo = new Fondo();
+            this.score = 0;
+            this.intervalId = undefined;
+            this.iteracion = 0;
 
             if (this.intervalId == undefined) {
                 this.intervalId = setInterval(() => {
@@ -202,8 +209,13 @@ window.onload = () => {
             this.score.updateScore();
         }
 
+
         stop() {
             if (this.intervalId) clearInterval(this.intervalId);
+            
+            document.getElementById("game-board").style.display = "none";
+            document.getElementById("game-over").style.display = "block";
+
         }
 
         win() { }
@@ -301,8 +313,6 @@ window.onload = () => {
                     this.player.y + this.player.h < obstaculo.y)) {
                     this.stop();
                 }
-
-
             })
 
             this.obstaculosGrandes.forEach(obstaculo => {
@@ -351,18 +361,37 @@ window.onload = () => {
 
             };
         }
+
+        reiniciar() {
+            this.player = new Player();
+            this.obstaculos = [];
+            this.score = 0;
+            this.iteracion = 0;
+            juego.start();
+          }
+
     }
 
 
     let juego = new Juego();
+    let boton = document.getElementById("game-intro")
+    let botongo = document.getElementById("game-over")
 
-    document.getElementById('start-button').onclick = () => {
-        startGame();
-    };
-
+   
     function startGame() {
         juego.start();
     }
+
+
+    boton.addEventListener ("click", () => {
+        
+        document.getElementById("game-intro").style.display = "none";
+        document.getElementById("game-board").style.display = "block";
+        console.log("entraaaaa")
+        startGame();
+
+    });
+
 
     //BARRA ESPACIADORA!!!
 
@@ -374,5 +403,17 @@ window.onload = () => {
     });
 
     //BARRA ESPACIADORA!!!
+
+    botongo.addEventListener ("click", () => {
+
+        document.getElementById("game-over").style.display = "none";
+        document.getElementById("game-board").style.display = "block";
+        console.log("entraaaaago")
+        startGame();
+        
+        
+    })
+
+
 
 }

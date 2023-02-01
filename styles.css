@@ -1,0 +1,43 @@
+body {
+    height: 500px;
+    width: 700px;
+}
+
+#game-intro {
+    height: 500px;
+    width: 700px;
+    position: absolute;
+    z-index: 0;
+}
+
+#start-button {
+    top: 320px;
+    left: 310px;
+    position: absolute;
+    z-index: 1;
+}
+
+#game-over {
+
+    position: absolute;
+    z-index: 0;
+
+}
+
+#restart {
+    top: 320px;
+    left: 310px;
+    position: absolute;
+    z-index: 0;
+}
+
+#poke-run {
+    position: absolute;
+    z-index: 0;
+}
+
+#game-board {
+    /* display: flex; */
+    position: absolute;
+    z-index: 0;
+}

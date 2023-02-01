@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<link rel="stylesheet" href="styles.css">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,17 +10,23 @@
 
 <body>
 
-    <div class="game-intro">
-        <img src="" alt="" class="" />
-        <br />
-        <button id="start-button">StartGame</button>
-        <p>Jump!</p>
+    <div id="game-over" style="display: none">
+
+        <div id="restart"><img src="./Images/boton start.png" alt="RESTART" width="80" height="30"></div>
+        <div> <img src="./Images/gameover2.png" alt="GAME OVER" width="700" height="500"></div>
 
     </div>
+
 
     <div id="game-board">
         <canvas id="canvas" width="700" height="500"></canvas>
     </div>
+    
+    <div id="game-intro">
+        <div id="start-button"><img src="./Images/boton start.png" alt="START" width="80" height="30"></div>
+        <img id="poke-run" src="./Images/inicio2.png" alt="Inicio Juego" width="700" height="500" />
+    </div>
+
 
     <script type="text/javascript" src="index.js"></script>
 
