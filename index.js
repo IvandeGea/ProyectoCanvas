@@ -7,7 +7,7 @@ window.onload = () => {
             this.w = 75;
             this.h = 50;
             this.vel = 0;
-            this.gravity = 1;
+            this.gravity = 1.3;
             this.jumping = false;
 
             this.imgPlayer = document.createElement("img");
@@ -61,7 +61,7 @@ window.onload = () => {
             this.h = 100;
             this.imgSuelo = document.createElement("img")
             this.imgSuelo.src = "images/suelo.png"
-            this.vel = 5
+            this.vel = 7
         }
         print(ctx) {
             ctx.drawImage(this.imgSuelo, this.x, this.y, this.w, this.h);
@@ -77,12 +77,11 @@ window.onload = () => {
 
     class Obstaculo {
         constructor() {
-            this.x = 700;
-            this.y = 360;
-            this.w = 25;
-            this.h = 25;
-            this.vel = 5;
-            this.color = "red";
+            this.x = 720;
+            this.y = 390;
+            this.w = 60;
+            this.h = 50;
+            this.vel = 7;
             this.imgObstaculo = document.createElement("img")
             this.imgObstaculo.src = "images/obstaculo1.png"
         }
@@ -93,6 +92,78 @@ window.onload = () => {
             this.x -= this.vel
         }
     }
+    class ObstaculoGrande {
+        constructor() {
+            this.x = 720;
+            this.y = 360;
+            this.w = 90;
+            this.h = 85;
+            this.vel = 7;
+            this.imgObstaculo = document.createElement("img")
+            this.imgObstaculo.src = "images/Obstaculo.png"
+        }
+        print(ctx) {
+            ctx.drawImage(this.imgObstaculo, this.x, this.y, this.w, this.h);
+        }
+        move() {
+            this.x -= this.vel
+        }
+    }
+
+    class Zubat {
+        constructor() {
+            this.x = 720;
+            this.y = 230;
+            this.w = 50;
+            this.h = 50;
+            this.vel = 10;
+            this.imgObstaculo = document.createElement("img");
+            this.imgObstaculo.src = "images/zubat.png";
+        }
+
+        print(ctx) {
+            ctx.drawImage(this.imgObstaculo, this.x, this.y, this.w, this.h)
+        }
+        move() {
+            this.x -= this.vel
+        }
+    }
+    class Ash {
+        constructor() {
+            this.x = 720;
+            this.y = 280;
+            this.w = 80;
+            this.h = 150;
+            this.vel = 10;
+            this.imgAsh = document.createElement("img");
+            this.imgAsh.src = "images/ash.png";
+        }
+
+        print(ctx) {
+            ctx.drawImage(this.imgAsh, this.x, this.y, this.w, this.h)
+        }
+        move() {
+            this.x -= this.vel
+        }
+    }
+
+    class Score {
+        constructor() {
+            this.x = 600;
+            this.y = 20;
+            this.w = 120;
+            this.h = 50;
+            this.score = 0
+        }
+        updateScore() {
+
+            this.score++;
+        };
+
+        print(ctx) {
+            ctx.fillText(`SCORE: ${this.score}`, this.x, this.y, this.w, this.h);
+        }
+    }
 
     class Juego {
         constructor() {
@@ -100,15 +171,17 @@ window.onload = () => {
             this.canvas = document.getElementById("canvas");
             this.ctx = canvas.getContext("2d");
             this.player = new Player();
-            this.obstaculos = [];
+            this.obstaculos1 = [];
+            this.obstaculosGrandes = [];
+            this.zubats = [];
+            this.ash = [];
             this.suelo = new Suelo();
             this.fondo = new Fondo();
-            this.score = 0;
+            this.score = new Score();
             this.intervalId = undefined;
             this.iteracion = 0;
 
         }
-
 
         //   }
         //   
@@ -125,11 +198,15 @@ window.onload = () => {
                     this.print();
                 }, 20);
             }
+
+            this.score.updateScore();
         }
 
         stop() {
             if (this.intervalId) clearInterval(this.intervalId);
         }
+
+        win() { }
 
         clear() {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -145,19 +222,64 @@ window.onload = () => {
             //Player
             this.player.print(this.ctx);
             //obst
-            this.obstaculos.forEach(obstaculo => {
+            this.obstaculos1.forEach(obstaculo => {
                 obstaculo.print(this.ctx)
             });
+            //Obst 2
+            this.obstaculosGrandes.forEach(obstaculo => {
+                obstaculo.print(this.ctx)
+            });
+            this.zubats.forEach(zubat => {
+                zubat.print(this.ctx)
+            });
+            //Score
+            this.score.print(this.ctx)
+
+            //Ash 
+
+            this.ash.forEach(ash => {
+                ash.print(this.ctx)
+            });
+
+
         }
 
         recalculate() {
-            if (this.iteracion % 200 == 0) {
+
+            if (this.iteracion % 20 == 0) {
+                this.score.updateScore()
+            }
+            if (this.iteracion % 100 == 0) {
                 //creo obstaculo
                 let obstaculo = new Obstaculo(this.canvas);
                 //lo añado al array
-                this.obstaculos.push(obstaculo);
+                this.obstaculos1.push(obstaculo);
                 ;
             }
+
+            if (this.iteracion % 325 == 0) {
+                //creo obstaculo
+                let obstaculoGrande = new ObstaculoGrande(this.canvas);
+                //lo añado al array
+                this.obstaculosGrandes.push(obstaculoGrande);
+                ;
+            }
+
+            if (this.iteracion % 190 == 0) {
+
+                //creo obstaculo
+                let zubat = new Zubat(this.canvas);
+                //lo añado al array
+                this.zubats.push(zubat);
+            }
+
+            if (this.iteracion % 100 == 0) {
+
+                let ash = new Ash(this.canvas);
+
+                this.ash.push(ash)
+            }
+
 
             this.suelo.x -= this.suelo.vel;
             if (this.suelo.x <= -this.suelo.w) {
@@ -169,12 +291,12 @@ window.onload = () => {
                 this.fondo.x = 0;
             }
 
-            //recorro array obstaculos:
-            this.obstaculos.forEach(obstaculo => {
+            //recorro array obstaculos1:
+            this.obstaculos1.forEach(obstaculo => {
                 //cambio posiciones
                 obstaculo.move();
-                if (!(this.player.x + this.player.w < obstaculo.x ||
-                    this.player.x > obstaculo.x + obstaculo.w ||
+                if (!(this.player.x + this.player.w - 20 < obstaculo.x ||
+                    this.player.x > obstaculo.x + obstaculo.w - 50 ||
                     this.player.y > obstaculo.y + obstaculo.h ||
                     this.player.y + this.player.h < obstaculo.y)) {
                     this.stop();
@@ -183,12 +305,47 @@ window.onload = () => {
 
             })
 
+            this.obstaculosGrandes.forEach(obstaculo => {
+                //cambio posiciones
+                obstaculo.move();
+                if (!(this.player.x + this.player.w - 30 < obstaculo.x ||
+                    this.player.x > obstaculo.x + obstaculo.w - 50 ||
+                    this.player.y > obstaculo.y + obstaculo.h ||
+                    this.player.y + this.player.h < obstaculo.y)) {
+                    this.stop();
+                }
+
+            })
+
+            //recorro array :
+            this.zubats.forEach(zubat => {
+                //cambio posiciones
+                zubat.move();
+                if (!(this.player.x + this.player.w - 20 < zubat.x ||
+                    this.player.x > zubat.x + zubat.w ||
+                    this.player.y > zubat.y + zubat.h
+                )) {
+                    this.stop();
+                }
+            });
+
+            this.ash.forEach(obstaculo => {
+                //cambio posiciones
+                obstaculo.move();
+                if (!(this.player.x + this.player.w - 20 < obstaculo.x ||
+                    this.player.x > obstaculo.x + obstaculo.w - 10 ||
+                    this.player.y > obstaculo.y + obstaculo.h ||
+                    this.player.y + this.player.h < obstaculo.y)) {
+                    this.stop();
+                }
+
+            });
 
 
             this.player.y += this.player.vel;
             this.player.vel += this.player.gravity;
-            if (this.player.y >= 370) {
-                this.player.y = 370;
+            if (this.player.y >= 380) {
+                this.player.y = 380;
                 this.player.vel = 0;
                 this.player.jumping = false;
 
