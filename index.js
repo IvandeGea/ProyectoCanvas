@@ -187,10 +187,13 @@ window.onload = () => {
         //   
         start() {
             this.player = new Player();
-            this.obstaculos = [];
+            this.obstaculos1 = [];
+            this.obstaculosGrandes = [];
+            this.zubats = [];
+            this.ash = [];
             this.suelo = new Suelo();
             this.fondo = new Fondo();
-            this.score = 0;
+            this.score = new Score();
             this.intervalId = undefined;
             this.iteracion = 0;
 
@@ -206,13 +209,12 @@ window.onload = () => {
                 }, 20);
             }
 
-            this.score.updateScore();
         }
 
 
         stop() {
             if (this.intervalId) clearInterval(this.intervalId);
-            
+
             document.getElementById("game-board").style.display = "none";
             document.getElementById("game-over").style.display = "block";
 
@@ -368,7 +370,7 @@ window.onload = () => {
             this.score = 0;
             this.iteracion = 0;
             juego.start();
-          }
+        }
 
     }
 
@@ -377,14 +379,14 @@ window.onload = () => {
     let boton = document.getElementById("game-intro")
     let botongo = document.getElementById("game-over")
 
-   
+
     function startGame() {
         juego.start();
     }
 
 
-    boton.addEventListener ("click", () => {
-        
+    boton.addEventListener("click", () => {
+
         document.getElementById("game-intro").style.display = "none";
         document.getElementById("game-board").style.display = "block";
         console.log("entraaaaa")
@@ -404,14 +406,14 @@ window.onload = () => {
 
     //BARRA ESPACIADORA!!!
 
-    botongo.addEventListener ("click", () => {
+    botongo.addEventListener("click", () => {
 
         document.getElementById("game-over").style.display = "none";
         document.getElementById("game-board").style.display = "block";
         console.log("entraaaaago")
         startGame();
-        
-        
+
+
     })
 
 
