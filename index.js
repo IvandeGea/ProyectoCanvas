@@ -81,7 +81,7 @@ window.onload = () => {
             this.y = 360;
             this.w = 25;
             this.h = 25;
-            this.vel = 5;
+            this.vel = 15;
             this.color = "red";
             this.imgObstaculo = document.createElement("img")
             this.imgObstaculo.src = "images/obstaculo1.png"
@@ -113,6 +113,13 @@ window.onload = () => {
         //   }
         //   
         start() {
+            this.player = new Player();
+            this.obstaculos = [];
+            this.suelo = new Suelo();
+            this.fondo = new Fondo();
+            this.score = 0;
+            this.intervalId = undefined;
+            this.iteracion = 0;
 
             if (this.intervalId == undefined) {
                 this.intervalId = setInterval(() => {
@@ -127,9 +134,12 @@ window.onload = () => {
             }
         }
 
+
         stop() {
             if (this.intervalId) clearInterval(this.intervalId);
-
+            
+            document.getElementById("game-board").style.display = "none";
+            document.getElementById("game-over").style.display = "block";
 
         }
 
@@ -181,8 +191,6 @@ window.onload = () => {
                     this.player.y + this.player.h < obstaculo.y)) {
                     this.stop();
                 }
-
-
             })
 
 
@@ -196,11 +204,27 @@ window.onload = () => {
 
             };
         }
+
+        reiniciar() {
+            this.player = new Player();
+            this.obstaculos = [];
+            this.score = 0;
+            this.iteracion = 0;
+            juego.start();
+          }
+
     }
 
 
     let juego = new Juego();
     let boton = document.getElementById("game-intro")
+    let botongo = document.getElementById("game-over")
+
+   
+    function startGame() {
+        juego.start();
+    }
+
 
     boton.addEventListener ("click", () => {
         
@@ -209,13 +233,8 @@ window.onload = () => {
         console.log("entraaaaa")
         startGame();
 
-
-
     });
 
-    function startGame() {
-        juego.start();
-    }
 
     //BARRA ESPACIADORA!!!
 
@@ -227,5 +246,17 @@ window.onload = () => {
     });
 
     //BARRA ESPACIADORA!!!
+
+    botongo.addEventListener ("click", () => {
+
+        document.getElementById("game-over").style.display = "none";
+        document.getElementById("game-board").style.display = "block";
+        console.log("entraaaaago")
+        startGame();
+        
+        
+    })
+
+
 
 }

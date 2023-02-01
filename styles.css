@@ -17,6 +17,20 @@ body {
     z-index: 1;
 }
 
+#game-over {
+
+    position: absolute;
+    z-index: 0;
+
+}
+
+#restart {
+    top: 320px;
+    left: 310px;
+    position: absolute;
+    z-index: 0;
+}
+
 #poke-run {
     position: absolute;
     z-index: 0;
