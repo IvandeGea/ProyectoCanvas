@@ -31,6 +31,20 @@ body {
     z-index: 0;
 }
 
+#game-win {
+
+    position: absolute;
+    z-index: 0;
+
+}
+
+#win {
+    top: 220px;
+    left: 200px;
+    position: absolute;
+    z-index: 0;
+}
+
 #poke-run {
     position: absolute;
     z-index: 0;
