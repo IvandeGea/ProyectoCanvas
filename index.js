@@ -35,7 +35,7 @@ window.onload = () => {
             this.h = canvas.height;
             this.vel = 0.25;
             this.imgBack = document.createElement("img");
-            this.imgBack.src = "images/fondo.jpeg"
+            this.imgBack.src = "images/fondo.jpg"
 
 
         }
@@ -53,22 +53,20 @@ window.onload = () => {
         }
     }
 
-
     class Suelo {
         constructor() {
-            this.x = canvas.width;
-            this.y = 400;
-
-
-            this.w = 100;
+            this.x = 0;
+            this.y = canvas.height - 100;
+            this.w = canvas.width;
             this.h = 100;
-
             this.imgSuelo = document.createElement("img")
             this.imgSuelo.src = "images/suelo.png"
-            this.vel = 1
+            this.vel = 5
         }
         print(ctx) {
             ctx.drawImage(this.imgSuelo, this.x, this.y, this.w, this.h);
+
+            ctx.drawImage(this.imgSuelo, this.x + this.w, this.y, this.w, this.h)
 
 
         }
@@ -81,8 +79,8 @@ window.onload = () => {
         constructor() {
             this.x = 700;
             this.y = 360;
-            this.w = 75;
-            this.h = 75;
+            this.w = 25;
+            this.h = 25;
             this.vel = 5;
             this.color = "red";
             this.imgObstaculo = document.createElement("img")
@@ -103,7 +101,7 @@ window.onload = () => {
             this.ctx = canvas.getContext("2d");
             this.player = new Player();
             this.obstaculos = [];
-            this.suelos = [];
+            this.suelo = new Suelo();
             this.fondo = new Fondo();
             this.score = 0;
             this.intervalId = undefined;
@@ -142,9 +140,8 @@ window.onload = () => {
             //fondo
             this.fondo.print(this.ctx);
             // suelo
-            this.suelos.forEach(suelos => {
-                suelos.print(this.ctx)
-            });
+            this.suelo.print(this.ctx)
+                ;
             //Player
             this.player.print(this.ctx);
             //obst
@@ -159,19 +156,12 @@ window.onload = () => {
                 let obstaculo = new Obstaculo(this.canvas);
                 //lo añado al array
                 this.obstaculos.push(obstaculo);
-
-                if (!(this.player.x + this.player.w < obstaculo.x ||
-                    this.player.x > obstaculo.x + obstaculo.w ||
-                    this.player.y > obstaculo.y + obstaculo.h ||
-                    this.player.y + this.player.h < obstaculo.y)) {
-                    this.stop();
-                }
                 ;
             }
 
-            if (this.iteracion % 70 == 0) {
-                let suelo = new Suelo(this.canvas);
-                this.suelos.push(suelo);
+            this.suelo.x -= this.suelo.vel;
+            if (this.suelo.x <= -this.suelo.w) {
+                this.suelo.x = 0;
             }
 
             this.fondo.x -= this.fondo.vel;
@@ -183,6 +173,14 @@ window.onload = () => {
             this.obstaculos.forEach(obstaculo => {
                 //cambio posiciones
                 obstaculo.move();
+                if (!(this.player.x + this.player.w < obstaculo.x ||
+                    this.player.x > obstaculo.x + obstaculo.w ||
+                    this.player.y > obstaculo.y + obstaculo.h ||
+                    this.player.y + this.player.h < obstaculo.y)) {
+                    this.stop();
+                }
+
+
             })
 
 
@@ -195,14 +193,7 @@ window.onload = () => {
                 this.player.jumping = false;
 
             };
-            this.suelos.forEach(suelo => {
-                suelo.move()
-            })
-
         }
-
-
-
     }
 
 
