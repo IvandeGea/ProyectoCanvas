@@ -35,7 +35,7 @@ window.onload = () => {
             this.h = canvas.height;
             this.vel = 0.25;
             this.imgBack = document.createElement("img");
-            this.imgBack.src = "images/fondo.jpeg"
+            this.imgBack.src = "images/fondo.jpg"
 
 
         }
