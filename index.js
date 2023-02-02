@@ -7,11 +7,11 @@ window.onload = () => {
             this.w = 75;
             this.h = 50;
             this.vel = 0;
-            this.gravity = 1;
+            this.gravity = 1.3;
             this.jumping = false;
 
             this.imgPlayer = document.createElement("img");
-            this.imgPlayer.src = "images/pika.gif"
+            this.imgPlayer.src = "Images/pika.gif"
 
         }
         print(ctx) {
@@ -20,13 +20,12 @@ window.onload = () => {
         }
 
 
-        jump() { 
+        jump() {
             this.vel = -20;
 
             this.jumping = true;
         }
     }
-
 
 
     class Fondo {
@@ -37,14 +36,14 @@ window.onload = () => {
             this.h = canvas.height;
             this.vel = 0.25;
             this.imgBack = document.createElement("img");
-            this.imgBack.src = "images/fondo.jpeg"
+            this.imgBack.src = "Images/fondo.jpg"
 
 
         }
         print(ctx) {
 
             ctx.drawImage(this.imgBack, this.x, this.y, this.w, this.h);
-            ctx.drawImage(this.imgBack, this.x + this.w, 0)
+            ctx.drawImage(this.imgBack, this.x + this.w, this.y, this.w, this.h)
 
         }
         move() {
@@ -55,22 +54,20 @@ window.onload = () => {
         }
     }
 
-
     class Suelo {
         constructor() {
-            this.x = canvas.width;
-            this.y = 400;
-
-
-            this.w = 100;
+            this.x = 0;
+            this.y = canvas.height - 100;
+            this.w = canvas.width;
             this.h = 100;
-
             this.imgSuelo = document.createElement("img")
-            this.imgSuelo.src = "images/suelo.png"
-            this.vel = 1
+            this.imgSuelo.src = "./Images/Suelo.png"
+            this.vel = 7
         }
         print(ctx) {
             ctx.drawImage(this.imgSuelo, this.x, this.y, this.w, this.h);
+
+            ctx.drawImage(this.imgSuelo, this.x + this.w, this.y, this.w, this.h)
 
 
         }
@@ -81,14 +78,30 @@ window.onload = () => {
 
     class Obstaculo {
         constructor() {
-            this.x = 700;
-            this.y = 360;
-            this.w = 75;
-            this.h = 75;
-            this.vel = 5;
-            this.color = "red";
+            this.x = 720;
+            this.y = 390;
+            this.w = 60;
+            this.h = 50;
+            this.vel = 7;
             this.imgObstaculo = document.createElement("img")
-            this.imgObstaculo.src = "images/obstaculo1.png"
+            this.imgObstaculo.src = "Images/obstaculo1.png"
+        }
+        print(ctx) {
+            ctx.drawImage(this.imgObstaculo, this.x, this.y, this.w, this.h);
+        }
+        move() {
+            this.x -= this.vel
+        }
+    }
+    class ObstaculoGrande {
+        constructor() {
+            this.x = canvas.width + 20;
+            this.y = 360;
+            this.w = 90;
+            this.h = 85;
+            this.vel = 7;
+            this.imgObstaculo = document.createElement("img")
+            this.imgObstaculo.src = "Images/Obstaculo.png"
         }
         print(ctx) {
             ctx.drawImage(this.imgObstaculo, this.x, this.y, this.w, this.h);
@@ -98,25 +111,91 @@ window.onload = () => {
         }
     }
 
+    class Zubat {
+        constructor() {
+            this.x = canvas.width + 20;
+            this.y = 230;
+            this.w = 50;
+            this.h = 50;
+            this.vel = 10;
+            this.imgObstaculo = document.createElement("img");
+            this.imgObstaculo.src = "Images/zubat.png";
+        }
+
+        print(ctx) {
+            ctx.drawImage(this.imgObstaculo, this.x, this.y, this.w, this.h)
+        }
+        move() {
+            this.x -= this.vel
+        }
+    }
+    class Ash {
+        constructor() {
+            this.x = canvas.width + 20;
+            this.y = 280;
+            this.w = 80;
+            this.h = 150;
+            this.vel = 10;
+            this.imgAsh = document.createElement("img");
+            this.imgAsh.src = "Images/ash.png";
+        }
+
+        print(ctx) {
+            ctx.drawImage(this.imgAsh, this.x, this.y, this.w, this.h)
+        }
+        move() {
+            this.x -= this.vel
+        }
+    }
+
+    class Score {
+        constructor() {
+            this.x = 600;
+            this.y = 20;
+            this.w = 120;
+            this.h = 50;
+            this.score = 0
+        }
+        updateScore() {
+
+            this.score++;
+        };
+
+        print(ctx) {
+            ctx.fillText(`SCORE: ${this.score}`, this.x, this.y, this.w, this.h);
+        }
+    }
+
     class Juego {
         constructor() {
 
             this.canvas = document.getElementById("canvas");
             this.ctx = canvas.getContext("2d");
             this.player = new Player();
-            this.obstaculos = [];
-            this.suelos = [];
+            this.obstaculos1 = [];
+            this.obstaculosGrandes = [];
+            this.zubats = [];
+            this.ash = [];
+            this.suelo = new Suelo();
             this.fondo = new Fondo();
-            this.score = 0;
+            this.score = new Score();
             this.intervalId = undefined;
             this.iteracion = 0;
 
         }
 
 
-        //   }
-        //   
         start() {
+            this.player = new Player();
+            this.obstaculos1 = [];
+            this.obstaculosGrandes = [];
+            this.zubats = [];
+            this.ash = [];
+            this.suelo = new Suelo();
+            this.fondo = new Fondo();
+            this.score = new Score();
+            this.intervalId = undefined;
+            this.iteracion = 0;
 
             if (this.intervalId == undefined) {
                 this.intervalId = setInterval(() => {
@@ -129,10 +208,23 @@ window.onload = () => {
                     this.print();
                 }, 20);
             }
+
         }
+
 
         stop() {
             if (this.intervalId) clearInterval(this.intervalId);
+
+            document.getElementById("game-board").style.display = "none";
+            document.getElementById("game-over").style.display = "block";
+
+        }
+
+        win() {
+            if (this.intervalId) clearInterval(this.intervalId);
+
+            document.getElementById("game-board").style.display = "none";
+            document.getElementById("game-win").style.display = "block";
         }
 
         clear() {
@@ -144,75 +236,187 @@ window.onload = () => {
             //fondo
             this.fondo.print(this.ctx);
             // suelo
-            this.suelos.forEach(suelos => {
-                suelos.print(this.ctx)
-            });
+            this.suelo.print(this.ctx)
+                ;
             //Player
             this.player.print(this.ctx);
             //obst
-            this.obstaculos.forEach(obstaculo => {
+            this.obstaculos1.forEach(obstaculo => {
                 obstaculo.print(this.ctx)
             });
-        }
-        
+            //Obst 2
+            this.obstaculosGrandes.forEach(obstaculo => {
+                obstaculo.print(this.ctx)
+            });
+            this.zubats.forEach(zubat => {
+                zubat.print(this.ctx)
+            });
+            //Score
+            this.score.print(this.ctx)
 
+            //Ash 
+
+            this.ash.forEach(ash => {
+                ash.print(this.ctx)
+            });
+
+
+        }
 
         recalculate() {
-            if (this.iteracion % 200 == 0) {
+
+            if (this.iteracion % 20 == 0) {
+                this.score.updateScore()
+            }
+            if (this.iteracion % 110 == 0) {
                 //creo obstaculo
                 let obstaculo = new Obstaculo(this.canvas);
                 //lo añado al array
-                this.obstaculos.push(obstaculo);
+                this.obstaculos1.push(obstaculo);
                 ;
-                }
+            }
 
-            if (this.iteracion % 70 == 0) {
-                let suelo = new Suelo(this.canvas);
-                this.suelos.push(suelo);
-                }
+            if (this.iteracion % 368 == 0) {
+                //creo obstaculo
+                let obstaculoGrande = new ObstaculoGrande(this.canvas);
+                //lo añado al array
+                this.obstaculosGrandes.push(obstaculoGrande);
+                ;
+            }
+
+            if (this.iteracion % 185 == 0) {
+
+                //creo obstaculo
+                let zubat = new Zubat(this.canvas);
+                //lo añado al array
+                this.zubats.push(zubat);
+            }
+
+            if (this.iteracion % 1200 == 0) {
+
+                let ash = new Ash(this.canvas);
+
+                this.ash.push(ash)
+            }
 
 
-             
-            })
+            this.suelo.x -= this.suelo.vel;
+            if (this.suelo.x <= -this.suelo.w) {
+                this.suelo.x = 0;
+            }
 
-                //recorro array obstaculos:
-                this.obstaculos.forEach(obstaculo => {
+            this.fondo.x -= this.fondo.vel;
+            if (this.fondo.x <= -this.fondo.w) {
+                this.fondo.x = 0;
+            }
+
+            //recorro array obstaculos1:
+            this.obstaculos1.forEach(obstaculo => {
                 //cambio posiciones
                 obstaculo.move();
+                if (!(this.player.x + this.player.w - 20 < obstaculo.x ||
+                    this.player.x > obstaculo.x + obstaculo.w - 50 ||
+                    this.player.y > obstaculo.y + obstaculo.h ||
+                    this.player.y + this.player.h < obstaculo.y)) {
+                    this.stop();
+                }
             })
-                
-                this.player.y += this.player.vel;
-                this.player.vel += this.player.gravity;
-                if (this.player.y >= 370) {
-                this.player.y = 370;
-                this.player.vel = 0;
-                this.player.jumping = false;
-                    } 
-                    
-                controlo colisiones
-                if (!(this.player.x + this.player.w < obstaculo.x ||
-                    this.player.x > obstaculo.x + obstaculo.w ||
+
+            this.obstaculosGrandes.forEach(obstaculo => {
+                //cambio posiciones
+                obstaculo.move();
+                if (!(this.player.x + this.player.w - 30 < obstaculo.x ||
+                    this.player.x > obstaculo.x + obstaculo.w - 50 ||
                     this.player.y > obstaculo.y + obstaculo.h ||
                     this.player.y + this.player.h < obstaculo.y)) {
                     this.stop();
                 }
 
-            this.suelos.forEach(suelo => {
-                suelo.move()
+
+
             })
 
+            //recorro array :
+            this.zubats.forEach(zubat => {
+                //cambio posiciones
+                zubat.move();
+                if (!(this.player.x + this.player.w - 20 < zubat.x ||
+                    this.player.x > zubat.x + zubat.w ||
+                    this.player.y > zubat.y + zubat.h
+                )) {
+                    this.stop();
+                }
+            });
+
+            this.ash.forEach(obstaculo => {
+                //cambio posiciones
+                obstaculo.move();
+                if (!(this.player.x + this.player.w - 20 < obstaculo.x ||
+                    this.player.x > obstaculo.x + obstaculo.w - 10 ||
+                    this.player.y > obstaculo.y + obstaculo.h ||
+                    this.player.y + this.player.h < obstaculo.y)) {
+                    this.win();
+                }
+
+            });
+
+
+            this.player.y += this.player.vel;
+            this.player.vel += this.player.gravity;
+            if (this.player.y >= 380) {
+                this.player.y = 380;
+                this.player.vel = 0;
+                this.player.jumping = false;
+            };
+
+            //Sprite Pikachu
+
+            if (this.iteracion % 4.5 == 0 && this.player.y === 380) {
+                this.player.imgPlayer.src = "./Images/pika4.png"
+            }
+
+            if (this.iteracion % 9 == 0 && this.player.y === 380) {
+                this.player.imgPlayer.src = "./Images/pika3.png"
+            }
+
+            if (this.iteracion % 13.5 == 0 && this.player.y === 380) {
+                this.player.imgPlayer.src = "./Images/pika2.png"
+            }
+            if (this.iteracion % 18 == 0 && this.player.y === 380) {
+                this.player.imgPlayer.src = "./Images/pika1.png"
+            }
         }
+
+        reiniciar() {
+            this.player = new Player();
+            this.obstaculos = [];
+            this.score = 0;
+            this.iteracion = 0;
+            juego.start();
+        }
+
     }
 
-    let juego = new Juego();
 
-    document.getElementById('start-button').onclick = () => {
-        startGame();
-    };
+    let juego = new Juego();
+    let boton = document.getElementById("game-intro")
+    let botongo = document.getElementById("game-over")
+    let botonwin = document.getElementById("game-win")
 
     function startGame() {
         juego.start();
     }
+
+
+    boton.addEventListener("click", () => {
+
+        document.getElementById("game-intro").style.display = "none";
+        document.getElementById("game-board").style.display = "block";
+        console.log("entraaaaa")
+        startGame();
+
+    });
+
 
     //BARRA ESPACIADORA!!!
 
@@ -220,10 +424,32 @@ window.onload = () => {
         if (event.code === "Space" && !juego.player.jumping) {
 
             juego.player.jump()
+            juego.player.imgPlayer.src = ("./Images/pika3.png")
         }
+
     });
 
     //BARRA ESPACIADORA!!!
 
-}
+    botongo.addEventListener("click", () => {
 
+        document.getElementById("game-over").style.display = "none";
+        document.getElementById("game-board").style.display = "block";
+        console.log("entraaaaago")
+        startGame();
+
+
+    })
+
+    botonwin.addEventListener("click", () => {
+
+        document.getElementById("game-over").style.display = "none";
+        document.getElementById("game-board").style.display = "block";
+        console.log("entraaaaago")
+        startGame();
+
+
+    })
+
+
+}
