@@ -442,6 +442,7 @@ window.onload = () => {
 
             juego.player.jump()
             pika.play()
+            juego.player.imgPlayer.src = ("./Images/pika3.png")
         }
 
     });
