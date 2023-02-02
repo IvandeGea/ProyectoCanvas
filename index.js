@@ -11,7 +11,7 @@ window.onload = () => {
             this.jumping = false;
 
             this.imgPlayer = document.createElement("img");
-            this.imgPlayer.src = "images/pika.gif"
+            this.imgPlayer.src = "Images/pika.gif"
 
         }
         print(ctx) {
@@ -35,7 +35,7 @@ window.onload = () => {
             this.h = canvas.height;
             this.vel = 0.25;
             this.imgBack = document.createElement("img");
-            this.imgBack.src = "images/fondo.jpg"
+            this.imgBack.src = "Images/fondo.jpg"
 
 
         }
@@ -60,7 +60,7 @@ window.onload = () => {
             this.w = canvas.width;
             this.h = 100;
             this.imgSuelo = document.createElement("img")
-            this.imgSuelo.src = "images/suelo.png"
+            this.imgSuelo.src = "Images/suelo.png"
             this.vel = 7
         }
         print(ctx) {
@@ -83,7 +83,7 @@ window.onload = () => {
             this.h = 50;
             this.vel = 7;
             this.imgObstaculo = document.createElement("img")
-            this.imgObstaculo.src = "images/obstaculo1.png"
+            this.imgObstaculo.src = "Images/obstaculo1.png"
         }
         print(ctx) {
             ctx.drawImage(this.imgObstaculo, this.x, this.y, this.w, this.h);
@@ -100,7 +100,7 @@ window.onload = () => {
             this.h = 85;
             this.vel = 7;
             this.imgObstaculo = document.createElement("img")
-            this.imgObstaculo.src = "images/Obstaculo.png"
+            this.imgObstaculo.src = "Images/Obstaculo.png"
         }
         print(ctx) {
             ctx.drawImage(this.imgObstaculo, this.x, this.y, this.w, this.h);
@@ -118,7 +118,7 @@ window.onload = () => {
             this.h = 50;
             this.vel = 10;
             this.imgObstaculo = document.createElement("img");
-            this.imgObstaculo.src = "images/zubat.png";
+            this.imgObstaculo.src = "Images/zubat.png";
         }
 
         print(ctx) {
@@ -136,7 +136,7 @@ window.onload = () => {
             this.h = 150;
             this.vel = 10;
             this.imgAsh = document.createElement("img");
-            this.imgAsh.src = "images/ash.png";
+            this.imgAsh.src = "Images/ash.png";
         }
 
         print(ctx) {
@@ -331,9 +331,7 @@ window.onload = () => {
                     this.player.y + this.player.h < obstaculo.y)) {
                     this.stop();
                 }
-
             })
-
             //recorro array :
             this.zubats.forEach(zubat => {
                 //cambio posiciones
