@@ -263,7 +263,7 @@ window.onload = () => {
             if (this.iteracion % 20 == 0) {
                 this.score.updateScore()
             }
-            if (this.iteracion % 100 == 0) {
+            if (this.iteracion % 110 == 0) {
                 //creo obstaculo
                 let obstaculo = new Obstaculo(this.canvas);
                 //lo añado al array
@@ -271,7 +271,7 @@ window.onload = () => {
                 ;
             }
 
-            if (this.iteracion % 325 == 0) {
+            if (this.iteracion % 368 == 0) {
                 //creo obstaculo
                 let obstaculoGrande = new ObstaculoGrande(this.canvas);
                 //lo añado al array
@@ -279,7 +279,7 @@ window.onload = () => {
                 ;
             }
 
-            if (this.iteracion % 190 == 0) {
+            if (this.iteracion % 185 == 0) {
 
                 //creo obstaculo
                 let zubat = new Zubat(this.canvas);
@@ -287,7 +287,7 @@ window.onload = () => {
                 this.zubats.push(zubat);
             }
 
-            if (this.iteracion % 100 == 0) {
+            if (this.iteracion % 1200 == 0) {
 
                 let ash = new Ash(this.canvas);
 
