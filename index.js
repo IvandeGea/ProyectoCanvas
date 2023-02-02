@@ -60,7 +60,7 @@ window.onload = () => {
             this.w = canvas.width;
             this.h = 100;
             this.imgSuelo = document.createElement("img")
-            this.imgSuelo.src = "Images/Suelo.png"
+            this.imgSuelo.src = "./Images/Suelo.png"
             this.vel = 7
         }
         print(ctx) {
