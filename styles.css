@@ -2,13 +2,14 @@ body {
     background-image: url(./Images/fonsoCss.webp);
     background-size: cover;
     background-repeat: no-repeat;
+    min-height: 100vh;
     /* background-position: center; */
 
 }
 
 body>img {
     position: absolute;
-    top: 428px;
+    bottom: 0px;
     right: 0px;
     width: 350px;
 

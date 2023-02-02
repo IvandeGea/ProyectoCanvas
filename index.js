@@ -412,7 +412,7 @@ window.onload = () => {
     let music = new Audio("./Images/music-pokemon.mp3")
     music.volume = 0.2;
     let pika = new Audio("./Images/pikachu.mp3")
-    pika.volume = 0.2;
+    pika.volume = 0.1;
     let gosound = new Audio("./Images/game-over.mp3")
     gosound.volume = 0.2;
     let winsound = new Audio("./Images/winsound.mp3")
