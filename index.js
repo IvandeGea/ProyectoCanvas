@@ -196,6 +196,7 @@ window.onload = () => {
             this.score = new Score();
             this.intervalId = undefined;
             this.iteracion = 0;
+            music.play()
 
             if (this.intervalId == undefined) {
                 this.intervalId = setInterval(() => {
@@ -215,6 +216,9 @@ window.onload = () => {
         stop() {
             if (this.intervalId) clearInterval(this.intervalId);
 
+            music.pause()
+            gosound.play()
+
             document.getElementById("game-board").style.display = "none";
             document.getElementById("game-over").style.display = "block";
 
@@ -222,6 +226,9 @@ window.onload = () => {
 
         win() { 
             if (this.intervalId) clearInterval(this.intervalId);
+
+            music.pause()
+            winsound.play()
 
             document.getElementById("game-board").style.display = "none";
             document.getElementById("game-win").style.display = "block";
@@ -252,7 +259,7 @@ window.onload = () => {
                 zubat.print(this.ctx)
             });
             //Score
-            this.score.print(this.ctx)
+            //this.score.print(this.ctx)
 
             //Ash 
 
@@ -384,6 +391,16 @@ window.onload = () => {
     let boton = document.getElementById("game-intro")
     let botongo = document.getElementById("game-over")
     let botonwin = document.getElementById("game-win")
+    let music = new Audio("./Images/music-pokemon.mp3")
+    music.volume = 0.2;
+    let pika = new Audio("./Images/pikachu.mp3")
+    pika.volume = 0.2;
+    let gosound = new Audio("./Images/game-over.mp3")
+    gosound.volume = 0.2;
+    let winsound = new Audio("./Images/winsound.mp3")
+    winsound.volume = 0.2;
+
+
 
     function startGame() {
         juego.start();
@@ -406,6 +423,7 @@ window.onload = () => {
         if (event.code === "Space" && !juego.player.jumping) {
 
             juego.player.jump()
+            pika.play()
         }
     });
 
