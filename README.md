@@ -6,7 +6,7 @@
 # PokeRun
 
 
-## ABOUT US ##
+## Sobre nosotros
 Somos Ivan y Lucas, dos alumnos del Bootcamp de Full Stack Development de **Ironhack Barcelona** y este es el primer proyecto combinando `CSS`, `HTML` y `JavaScript` que ambos hemos desarrollado.
 
 
@@ -53,11 +53,11 @@ Colisión contra Pokemones.
 
 |   Class   | Properties                                                            | Methods                                          |
 | :-------: | --------------------------------------------------------------------- | ------------------------------------------------ |
-|   Player   | x, y, w, h, vel, imgPlayer                                           | print(ctx), jumping()                            |
+|   Player  | x, y, w, h, vel, imgPlayer                                            | print(ctx), jumping()                            |
 | Obstaculo | x, y, w, h, vel, color                                                | print(ctx), move()                               |
 |   Juego   | canvas, ctx, roadImg, coche, obstaculos, score, intervalId, iteracion | start(), stop(), clear(), print(), recalculate() |
-|   Suelo   |                                                                       | print(ctx), move()                               |
-|   Fondo   |                                                                       | print(ctx), move()                               | 
+|   Suelo   | x, y, w, h, vel, imgSuelo                                             | print(ctx), move()                               |
+|   Fondo   | x, y, w, h, vel, imgFondo                                             | print(ctx), move()                               | 
 
 
 
