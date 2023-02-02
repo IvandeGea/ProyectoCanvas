@@ -94,7 +94,7 @@ window.onload = () => {
     }
     class ObstaculoGrande {
         constructor() {
-            this.x = 720;
+            this.x = canvas.width + 20;
             this.y = 360;
             this.w = 90;
             this.h = 85;
@@ -112,7 +112,7 @@ window.onload = () => {
 
     class Zubat {
         constructor() {
-            this.x = 720;
+            this.x = canvas.width + 20;
             this.y = 230;
             this.w = 50;
             this.h = 50;
@@ -130,7 +130,7 @@ window.onload = () => {
     }
     class Ash {
         constructor() {
-            this.x = 720;
+            this.x = canvas.width + 20;
             this.y = 280;
             this.w = 80;
             this.h = 150;
@@ -220,7 +220,7 @@ window.onload = () => {
 
         }
 
-        win() { 
+        win() {
             if (this.intervalId) clearInterval(this.intervalId);
 
             document.getElementById("game-board").style.display = "none";
