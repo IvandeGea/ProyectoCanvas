@@ -220,7 +220,12 @@ window.onload = () => {
 
         }
 
-        win() { }
+        win() { 
+            if (this.intervalId) clearInterval(this.intervalId);
+
+            document.getElementById("game-board").style.display = "none";
+            document.getElementById("game-win").style.display = "block";
+        }
 
         clear() {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -348,7 +353,7 @@ window.onload = () => {
                     this.player.x > obstaculo.x + obstaculo.w - 10 ||
                     this.player.y > obstaculo.y + obstaculo.h ||
                     this.player.y + this.player.h < obstaculo.y)) {
-                    this.stop();
+                    this.win();
                 }
 
             });
@@ -378,7 +383,7 @@ window.onload = () => {
     let juego = new Juego();
     let boton = document.getElementById("game-intro")
     let botongo = document.getElementById("game-over")
-
+    let botonwin = document.getElementById("game-win")
 
     function startGame() {
         juego.start();
@@ -416,6 +421,15 @@ window.onload = () => {
 
     })
 
+    botonwin.addEventListener("click", () => {
+
+        document.getElementById("game-over").style.display = "none";
+        document.getElementById("game-board").style.display = "block";
+        console.log("entraaaaago")
+        startGame();
+
+
+    })
 
 
 }
